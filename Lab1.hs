@@ -73,15 +73,19 @@ digs' x = reverse (digs'' x)
 
 
 
-numberofdigs :: Integer -> Integer -> Int
+numberofdigs :: [a]->[a]->Int
 numberofdigs a b = x
-                    where 
-                        lengtha=length (digs'' a)
-                        lengthb=length (digs'' b)
-                        x= max lengtha lengthb
+    where 
+        lengtha=length (a)
+        lengthb=length (b)
+        x= max lengtha lengthb
 
 
-
+greater :: [a]->[a]->Int
+greater a b
+        | (length a)>((length b) =1
+        | (length a)<((length b) =-1 
+        | (length a)==((length b) = 0
 
 concatenate::Integral x => [x] -> x
 concatenate x 
@@ -96,24 +100,20 @@ join'' a b = (a*c) `mod` 10
                         c=9-b
 
 
-join' :: Integer -> Integer -> Integer
+join' :: Int -> Int -> Int
 join' a b = x
         where
             digits=digs' a
             digitssecond=digs' b
             x=digitssecond!!1
 
-join :: Integer -> Integer -> Integer
+join :: Int -> Int -> Int
 join a b = x
     where
-        pa=a `div` 10
-        pb=b `div` 10
-        ca= a`mod` 10
-        cb= b`mod` 10
-        x
-         | (ca==0 || cb==0) =0
-         | otherwise = 10*(join pa pb)
-        --x =previousNumber + (join'' ca cb)
+        tablea=digs' a
+        tableb=digs' b
+        max=numberofdigs tablea tableb
+        x=tablea!!(max-1)
 
 
 
@@ -122,5 +122,5 @@ main = do
     --print ( area (-1.01,-0.02) (0.99,-0.02) (-0.01,1.71))
     --print ( numberofdigs 120 15)
     --print (product' (-1))
-    --print(gcd 1 2)
-    print(concatenate(digs'' 15))
+    print(join 113 12)
+    --print(concatenate(digs'' 15))
