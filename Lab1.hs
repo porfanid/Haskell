@@ -14,7 +14,7 @@ distance (x1 , y1) (x2 , y2) = sqrt (x'*x' + y'*y')
 
 
 
--- Function to calculate the area between 3 points in space
+-- Function to calculate the area between 3 points in space as required by the excersise
 
 area :: (Double,Double)->(Double,Double)->(Double,Double)->Double
 
@@ -42,6 +42,7 @@ area (xx,xy) (yx,yy) (zx,zy)
 
 
 -- renamed the function as product', as there was a problem caused by a function already imported from Prelude.
+-- #NOT_WORKING
 
 product' :: Integer->Integer
 product' n
@@ -57,22 +58,30 @@ product' n
 -------------------------------------------------------------------------------------------------------------------
 --ASKHSH 4
 
+
 -- getting a list with all the digits of a number in reverse order
-digs'' :: Integral x => x -> [x]
-digs'' 0 = []
-digs'' x = x `mod` 10 : digs'' (x `div` 10)
+-- E.G. digs'' 15=[5,1]
+--      digs'' 132=[2,3,1]
+-- required only if we are going to work with lists. Otherwise it is not important
+
+digits' :: Integral x => x -> [x]
+digits' 0 = []
+digits' x = x `mod` 10 : digits' (x `div` 10)
 
 
 
 
 
 
--- getting the digits of a number in the correct order
-digs' :: Integral x => x -> [x]
-digs' x = reverse (digs'' x)
+-- getting the digits of a number in the correct order. Doing the exact same thing as the above function, but in the correct order
+-- E.G. digs' 15=[1,5]
+--      digs' 132=[1,3,2]
+
+digits :: Integral x => x -> [x]
+digits x = reverse (digits' x)
 
 
-
+-- function to 
 numberofdigs :: [a]->[a]->Int
 numberofdigs a b = x
     where 
@@ -83,9 +92,9 @@ numberofdigs a b = x
 
 greater :: [a]->[a]->Int
 greater a b
-        | (length a)>((length b) =1
-        | (length a)<((length b) =-1 
-        | (length a)==((length b) = 0
+        | (length a)>(length b) = 1
+        | (length a)<(length b) = (-1 )
+        | (length a)==(length b) = 0
 
 concatenate::Integral x => [x] -> x
 concatenate x 
@@ -103,15 +112,15 @@ join'' a b = (a*c) `mod` 10
 join' :: Int -> Int -> Int
 join' a b = x
         where
-            digits=digs' a
-            digitssecond=digs' b
+            digitsfirst = digits a
+            digitssecond=digits b
             x=digitssecond!!1
 
 join :: Int -> Int -> Int
 join a b = x
     where
-        tablea=digs' a
-        tableb=digs' b
+        tablea=digits a
+        tableb=digits b
         max=numberofdigs tablea tableb
         x=tablea!!(max-1)
 
