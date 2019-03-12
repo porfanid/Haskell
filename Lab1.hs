@@ -34,53 +34,6 @@ area (xx,xy) (yx,yy) (zx,zy)
 ----------------------------------------------------------------------------------
 -- ASKHSH 2
 
--- ASKHSH 2
-isJulAug:: Int->Int->Int
-isJulAug month price
-      |((month==7)||(month==8))=(int (1.3*price))
-      |otherwise = price
-
-price::Int->Int->Int
-price room month
-      |room==1 = (isJulAug month 50)
-      |room==2 = (isJulAug month 80)
-      |room==3 = (isJulAug month 100)
-
-
-
-daysOfMonth:: Int->Int
-daysOfMonth month
-      |(month==3) =x
-      |(month==4) =y
-      |(month==5) =x
-      |(month==6) =y
-      |(month==7) =x
-      |(month==8) =y
-      |(month==9) =x
-        where
-          x=30
-          y=31
-
-
-totalCostOfRoom::(Int,Int)->(Int,Int)->Int->Int
-totalCostOfRoom (day1,month1) (day2,month2) room
-      |month1==month2 =(day2-day1)*(price room month1)
-      |otherwise = daysMonth1*(price month1 room)+day2*(price month2 room)
-          where
-            daysMonth1=(daysOfMonth month1)-day1
-
-
-
-cost::(Int,Int)->(Int,Int)->Int->Int->Int
-cost (day1,month1) (day2,month2) group single 
-  |day1>(daysOfMonth month1) =(-1)
-  |day2>(daysOfMonth month2) =(-1)
-  |otherwise=totalCost
-            where
-              s=single*(totalCostOfRoom (day1,month1) (day2,month2) 1)
-              d=single*(totalCostOfRoom (day1,month1) (day2,month2) 2)
-              t=single*(totalCostOfRoom (day1,month1) (day2,month2) 3)
-              totalCost=s+d+t
 
 ----------------------------------------------------------------------
 -- ASKHSH 3
@@ -172,6 +125,6 @@ join a b = x
 main = do
     --print ( area (-1.01,-0.02) (0.99,-0.02) (-0.01,1.71))
     --print ( numberofdigs 120 15)
-    --print (product' (-1))
+    print (product' (32))
     print(join 113 12)
     --print(concatenate(digs'' 15))
