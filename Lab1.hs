@@ -33,29 +33,22 @@ area (xx,xy) (yx,yy) (zx,zy)
 -- ASKHSH 2
 
 
------------------------------------------------------------------------------------
+----------------------------------------------------------------------
 -- ASKHSH 3
 
-
-
-
-
-
--- renamed the function as product', as there was a problem caused by a function already imported from Prelude.
--- #NOT_WORKING
-
-product' :: Integer->Integer
-product' n
+product'' :: Integer->Integer->Integer
+product'' n m
     | n<0 = 0
     | n==0 =1
-    | n>0 && (gcd n (n-1))==0  = n*x
-    | n>0 && (gcd n (n-1)) /=0 = x
+    | (n>0 && ((gcd (m) n )==1))  = n*x
+    | (n>0 && ((gcd (m) n) /=1)) = x
                 where
-                    x=product' (n-1)
+                    x=product'' (n-1) m
 
-        
+product' :: Integer->Integer                    
+product' n=(product'' n n)
+----------------------------------------------------------------------
 
--------------------------------------------------------------------------------------------------------------------
 --ASKHSH 4
 
 
