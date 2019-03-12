@@ -35,7 +35,7 @@ area (xx,xy) (yx,yy) (zx,zy)
 -- ASKHSH 2
 isJulAug:: Int->Int->Int
 isJulAug month price
-      |((month==7)||(month==8))=(int (1.3*price))
+      |((month==7)||(month==8))=(1.3*price)
       |otherwise = price
 
 price::Int->Int->Int
