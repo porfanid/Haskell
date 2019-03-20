@@ -1,4 +1,3 @@
-
 -----------------------------------------------------------------------------------------
 
 -- ASKHSH 1
@@ -32,12 +31,11 @@ getNum (x,y) z
     |z==0 =x
     |z==1 =y
     |otherwise = error ("Element not found")
-
 trace':: [(Int,Int)]->Int
 trace' (s:t) = getNum s 0
 
-trace :: [(Int,Int)]->[(Int,Int)]
 
+trace :: [(Int,Int)]->[(Int,Int)]
 trace s = [(-2019,-2019)]
 
 
@@ -61,14 +59,16 @@ partition x = [["-2019"]]
      
 -- ASKHSH 4
 
+coefficient:: Integer->Integer->Integer
+coefficient i n = (toInteger (fromIntegral ((n-i+1)`div`(2^(i-1)))))
 
-hof :: [Integer->Integer]->(Integer->Integer)
+hof :: [Integer->Integer]-> Int ->(Integer->Integer)
+hof (s:t) i = (s . (coefficient 1)) . (hof t (i+1))
+hof [] k= (+0)
 
-hof (s:t) = s $ (hof t)
-hof [] = (+ 0)
-
-
-
+bits :: Integer -> Int
+bits 0 = 0
+bits n = fromInteger n `mod` 2 + bits(fromInteger n `div` 2)
 
 
 -----------------------------------------------------------------------------------------
@@ -92,4 +92,4 @@ main = do
     putStrLn("---------Excersise 2------------")
     print(trace' [(3,8)])
     putStrLn("---------Excersise 4------------")
-    print(map (hof [(+1)]) [1..10])
+    print(map (hof [(+1),(+2)] 0) [1..10])
