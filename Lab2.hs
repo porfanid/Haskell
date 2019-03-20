@@ -62,8 +62,8 @@ partition x = [["-2019"]]
 coefficient:: Integer->Integer->Integer
 coefficient i n = (toInteger (fromIntegral ((n-i+1)`div`(2^(i-1)))))
 
-hof :: [Integer->Integer]-> Int ->(Integer->Integer)
-hof (s:t) i = (s . (coefficient 1)) . (hof t (i+1))
+hof :: [Integer->Integer]-> Integer ->(Integer->Integer)
+hof (s:t) i = ((coefficient i) * s) . (hof t (i+1))
 hof [] k= (+0)
 
 bits :: Integer -> Int
@@ -92,4 +92,4 @@ main = do
     putStrLn("---------Excersise 2------------")
     print(trace' [(3,8)])
     putStrLn("---------Excersise 4------------")
-    print(map (hof [(+1),(+2)] 0) [1..10])
+    print(map (hof [(+1),(+2)] 1) [1..10])
