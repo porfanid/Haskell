@@ -95,7 +95,7 @@ function:: (Integer->Integer)->(Integer->Integer) -> Integer->(Integer->Integer)
 function a b i= (b . a) . (division ((2)^(i-1)))
 
 hof' :: [Integer->Integer]-> Integer ->(Integer->Integer)
-hof' (s:t) i = (function s (coefficient i) i) + (hof' t (i+1))
+hof' (s:t) i = (function s (coefficient i) i) . (hof' t (i+1))
 hof' [] i= (+0)
 
 
@@ -106,10 +106,14 @@ hof a =hof' a 1
      
 -- ASKHSH 5                                   
 
-combine :: [u]->[v]->(u->v->w)->(u->v->w)->(Int->Bool)->[w]
+combine :: Int->[u]->[v]->(u->v->w)->(u->v->w)->(Int->Bool)->[w]
 
-combine s t f g h = []
-
+combine originalSize (s:t) (a:b) f g h =
+    if h(originalSize-(length (s:t))) then
+        [f s a]++(combine originalSize t b f g h)
+    else
+        [g s a]++(combine originalSize t b f g h)
+combine originalSize [] [] f g h=[]
 
 
 
@@ -125,4 +129,5 @@ main = do
     putStrLn("---------Excersise 4------------")
     print(map (hof [(+1)]) [1..10])
     print(map (hof [(+1),(+2)]) [1..10])
-    print( map (hof [(2^),(2^),(2^),(2^),(2^)]) [5..12])
+    --print( map (hof [(2^),(2^),(2^),(2^),(2^)]) [5..12])
+    print (combine (length [5,4,3,2]) [5,4,3,2] [7,8,9,10] (*) (^) odd)
