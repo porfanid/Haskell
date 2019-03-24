@@ -26,15 +26,9 @@ xsum a = xsum' [] a
      
 -- ASKHSH 2
 
-getNum:: (Int,Int)->Int->Int
-getNum (x,y) z
-    |z==0 =x
-    |z==1 =y
-    |otherwise = error ("Element not found")
-
     
 trace':: (Int,Int)->(Int,Int)->[(Int,Int)]
-trace' (ax,ay) (bx,by) = y++[(bx,by)]
+trace' (ax,ay) (bx,by) = [(bx,by)]++y
     where
         ax'=
             if(bx<ax) then
@@ -59,14 +53,17 @@ trace' (ax,ay) (bx,by) = y++[(bx,by)]
                 (trace'(ax,ay) (ax',ay'))
 
 
-trace :: [(Int,Int)]->[(Int,Int)]
-trace a = 
+trace'' :: [(Int,Int)]->[(Int,Int)]
+trace'' a = 
     if(length a>1)then
-        trace' (a!!0) (a!!1) ++ (trace (drop 2 a))
+        (trace'' (drop 1 a))++trace' (a!!0) (a!!1)
     else
         []
 
-
+trace :: [(Int,Int)]->[(Int,Int)]
+trace matrix = ((trace'' a))
+        where
+            a=[(0,0)]++matrix++[(0,0)]
 
 
 
