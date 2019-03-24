@@ -84,25 +84,23 @@ partition x = [["-2019"]]
      
 -- ASKHSH 4
 
-coefficient:: Integer->Integer->Integer
-coefficient i n = (toInteger (fromIntegral (x)))
-    where
-        x=(n-i+1)`div`(2^(i-1))
 
-multiplication:: (Integer->Integer)->(Integer->Integer)->(Integer->Integer)
-multiplication a b= a --  b)
+coefficient:: Integer->Integer->Integer
+coefficient i n = (n-i+1)
+
+division::Integer->Integer->Integer
+division x y= (y `div` x)
+
+function:: (Integer->Integer)->(Integer->Integer) -> Integer->(Integer->Integer)
+function a b i= (b . a) . (division ((2)^(i-1)))
 
 hof' :: [Integer->Integer]-> Integer ->(Integer->Integer)
-hof' (s:t) i = (multiplication s (coefficient i)) . (hof' t (i+1))
-hof' [] k= (+0)
+hof' (s:t) i = (function s (coefficient i) i) + (hof' t (i+1))
+hof' [] i= (+0)
+
 
 hof :: [Integer->Integer] ->(Integer->Integer)
 hof a =hof' a 1
-
-bits :: Integer -> Int
-bits 0 = 0
-bits n = fromInteger n `mod` 2 + bits(fromInteger n `div` 2)
-
 
 -----------------------------------------------------------------------------------------
      
@@ -125,4 +123,6 @@ main = do
     putStrLn("---------Excersise 2------------")
     print(trace [(2 , 2), (3 , 5)])
     putStrLn("---------Excersise 4------------")
+    print(map (hof [(+1)]) [1..10])
     print(map (hof [(+1),(+2)]) [1..10])
+    print( map (hof [(2^),(2^),(2^),(2^),(2^)]) [5..12])
