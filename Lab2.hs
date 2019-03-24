@@ -31,12 +31,40 @@ getNum (x,y) z
     |z==0 =x
     |z==1 =y
     |otherwise = error ("Element not found")
-trace':: [(Int,Int)]->Int
-trace' (s:t) = getNum s 0
+
+    
+trace':: (Int,Int)->(Int,Int)->[(Int,Int)]
+trace' (ax,ay) (bx,by) = y++[(bx,by)]
+    where
+        ax'=
+            if(bx<ax) then
+                bx+1
+            else
+                if(bx>ax) then
+                    bx-1
+                else
+                    bx
+        ay'=
+                if(by<ay) then
+                    by+1
+                else
+                    if(by>ay) then
+                        by-1
+                    else
+                        by
+        y = 
+            if((ax==bx&&ay==by))  then
+                []
+            else
+                (trace'(ax,ay) (ax',ay'))
 
 
 trace :: [(Int,Int)]->[(Int,Int)]
-trace s = [(-2019,-2019)]
+trace a = 
+    if(length a>1)then
+        trace' (a!!0) (a!!1) ++ (trace (drop 2 a))
+    else
+        []
 
 
 
@@ -60,11 +88,19 @@ partition x = [["-2019"]]
 -- ASKHSH 4
 
 coefficient:: Integer->Integer->Integer
-coefficient i n = (toInteger (fromIntegral ((n-i+1)`div`(2^(i-1)))))
+coefficient i n = (toInteger (fromIntegral (x)))
+    where
+        x=(n-i+1)`div`(2^(i-1))
 
-hof :: [Integer->Integer]-> Integer ->(Integer->Integer)
-hof (s:t) i = ((coefficient i) * s) . (hof t (i+1))
-hof [] k= (+0)
+multiplication:: (Integer->Integer)->(Integer->Integer)->(Integer->Integer)
+multiplication a b= a --  b)
+
+hof' :: [Integer->Integer]-> Integer ->(Integer->Integer)
+hof' (s:t) i = (multiplication s (coefficient i)) . (hof' t (i+1))
+hof' [] k= (+0)
+
+hof :: [Integer->Integer] ->(Integer->Integer)
+hof a =hof' a 1
 
 bits :: Integer -> Int
 bits 0 = 0
@@ -90,6 +126,6 @@ main = do
     print(xsum [1..10])
     print(xsum [1..100])
     putStrLn("---------Excersise 2------------")
-    print(trace' [(3,8)])
+    print(trace [(2 , 2), (3 , 5)])
     putStrLn("---------Excersise 4------------")
-    print(map (hof [(+1),(+2)] 1) [1..10])
+    print(map (hof [(+1),(+2)]) [1..10])
