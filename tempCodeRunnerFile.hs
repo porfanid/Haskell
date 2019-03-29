@@ -1,1 +1,1 @@
-div y x
+head (n-i+1)

@@ -92,22 +92,16 @@ partition x = (combos x)
 -- ASKHSH 4
 
 
-coefficient:: Integer->Integer->Integer
-coefficient i n = (n-i+1)
+help::Integer->Integer->[Integer->Integer]->Integer
+help i n (head:tail)= ((head (n-i+1))`div`second+(help (i+1) n tail))
+            where
+                second=(2^(i-1))
 
-division::Integer->Integer->Integer
-division x y= (y `div` x)
-
-function:: (Integer->Integer)->(Integer->Integer) -> Integer->(Integer->Integer)
-function a b i= (b . a) . (division ((2)^(i-1)))
-
-hof' :: [Integer->Integer]-> Integer ->(Integer->Integer)
-hof' (s:t) i = (function s (coefficient i) i) . (hof' t (i+1))
-hof' [] i= (+0)
+help _ _ []=(0)
 
 
 hof :: [Integer->Integer] ->(Integer->Integer)
-hof a =hof' a 1
+hof s = \n -> help 1 n s
 
 -----------------------------------------------------------------------------------------
      
@@ -147,7 +141,7 @@ main = do
     putStrLn("---------Excersise 2------------")
     print(trace [(2 , 2), (3 , 5)])
     putStrLn("---------Excersise 3------------")
-    print( partition "kwlofardoskwlofardos")
+    --print( partition "kwlofardoskwlofardos")
     putStrLn("---------Excersise 4------------")
     print(map (hof [(+1)]) [1..10])
     print(map (hof [(+1),(+2)]) [1..10])
