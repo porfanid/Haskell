@@ -129,7 +129,8 @@ combine' originalSize [] [] f g h=[]
         --[g s a]++(combine' originalSize t b f g h)
 --combine' originalSize [] [] f g h=[]
 
-
+charToString :: Char -> String
+charToString = (:[])
 
 main = do
     putStrLn("---------Excersise 1------------")
@@ -146,8 +147,13 @@ main = do
     print(map (hof [(+1)]) [1..10])
     print(map (hof [(+1),(+2)]) [1..10])
     --print( map (hof [(2^),(2^),(2^),(2^),(2^)]) [5..12])
+<<<<<<< refs/remotes/origin/excersise2
 
     putStrLn("---------Excersise 5------------")
     print(combine [5,4,3,2] [7,8,9,10] (*) (^) odd)
     print(combine ["summer","drops","black","white"] ["time","rain","board","snow"] (++) (\x y -> y++x) odd)
     print(combine ["summer","drops","black","white","time","rain","board","snow"] [1..] (\x y -> (x,0)) (\x y -> ("",y)) even)
+=======
+    print (combine (length [5,4,3,2]) [5,4,3,2] [7,8,9,10] (*) (^) odd)
+    print(['s','u','n'])
+>>>>>>> updated
